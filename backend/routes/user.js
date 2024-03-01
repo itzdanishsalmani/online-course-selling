@@ -24,7 +24,7 @@ router.post('/signin', async (req, res) => {
     const email = req.body.email;
     const password=req.body.password;
     
-    const user =await User.find({
+    const user =await User.findOne({
         email,
         password
     })
@@ -34,10 +34,12 @@ router.post('/signin', async (req, res) => {
             email
         },JWT_SECRET);
         res.json({
+            success:true,
             token
         })
     }else{
         res.status(411).json({
+            success:false,
             msg:"Incorrect username or password"
         })
     }

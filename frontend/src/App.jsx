@@ -1,18 +1,20 @@
-import { useState } from 'react'
-import { UserLogin } from './Components/UserLogin'
-import { AdminLogin } from './Components/AdminLogin'
+ import { BrowserRouter,Routes,Route }from 'react-router-dom'
+import { Landing } from './Components/Pages/Landing'
 
 function App() {
 
-
   return (
-    <>
-    {/* <button onClick={handler()} >User Login</button> */}
-    <UserLogin/>
-    <AdminLogin/>
-    {/* <button>Admin Login</button> */}
-    </>
+    <div>
+     <BrowserRouter>
+     <Routes>
+     <Route path="/" element={<Landing/>} />
+     
+     </Routes>
+     </BrowserRouter>
+    </div>
   )
 }
 
 export default App
+
+
