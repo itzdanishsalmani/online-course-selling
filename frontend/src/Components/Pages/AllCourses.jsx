@@ -46,8 +46,29 @@ function TopBar(){
 
     return(
         <div className="flex">
+            
             <div className="ml-48 w-fit border border-blue-900 rounded-xl p-4">
             <img src="/MernStack.png" className="w-fit h-auto rounded-xl" alt="MernStack" />
+            <div>
+                <div className="font-bold text-lg">{props.title}</div>
+                <div className="text-gray-600">{props.description}</div>
+                <div className="text-blue-900 font-bold">{props.price}</div>
+                <button className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Buy now</button>
+            </div>
+            </div>
+
+            <div className="ml-8 w-fit border border-blue-900 rounded-xl p-4">
+            <img src="/AI.jpeg" className="w-fit h-auto rounded-xl" alt="AI" />
+            <div >
+                <div className="font-bold text-lg">{props.title}</div>
+                <div className="text-gray-600">{props.description}</div>
+                <div className="text-blue-900 font-bold">${props.price}</div>
+                <button className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Buy now</button>
+            </div>
+        </div>  
+
+        <div className="ml-8 w-fit border border-blue-900 rounded-xl p-4">
+            <img src="/DSA.png" className="w-fit h-auto rounded-xl" alt="DSA" />
             <div >
                 <div className="font-bold text-lg">{props.title}</div>
                 <div className="text-gray-600">{props.description}</div>
@@ -56,28 +77,18 @@ function TopBar(){
             </div>
         </div>
 
-                    </div>
+    </div>
     )
  }
 
- function AllCourses() {
+ export function AllCourses() {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('http://localhost:3000/user/courses');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch data');
-                }
-                const data = await response.json();
-                setCourses(Array.isArray(data) ? data : []); // Ensure data is an array before setting state
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchData();
+            fetch('http://localhost:3000/user/courses')
+            .then(response=>response.json())
+            .then(data=>setCourses(data.courses))
+            .catch(error => console.error("Error while fetching:", error));
     }, []);
 
     return (
@@ -87,7 +98,7 @@ function TopBar(){
 
             {courses.map(course => (
                 <CoursesCard
-                    key={course.id} // Ensure each component has a unique key
+                    key={course.id}
                     title={course.title}
                     description={course.description}
                     price={course.price}
@@ -97,25 +108,3 @@ function TopBar(){
         </div>
     );
 }
-
-export default AllCourses;
-        
-{/* <div className="ml-8 w-fit border border-blue-900 rounded-xl p-4">
-            <img src="/AI.jpeg" className="w-fit h-auto rounded-xl" alt="AI" />
-            <div >
-                <div className="font-bold text-lg">Title</div>
-                <div className="text-gray-600">Description</div>
-                <div className="text-blue-900 font-bold">$Price</div>
-                <button className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Buy now</button>
-            </div>
-        </div>  
-
-        <div className="ml-8 w-fit border border-blue-900 rounded-xl p-4">
-            <img src="/DSA.png" className="w-fit h-auto rounded-xl" alt="DSA" />
-            <div >
-                <div className="font-bold text-lg">Title</div>
-                <div className="text-gray-600">Description</div>
-                <div className="text-blue-900 font-bold">$Price</div>
-                <button className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Buy now</button>
-            </div>
-        </div>  */}

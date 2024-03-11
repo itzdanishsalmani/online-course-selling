@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AllCourses } from './Components/Pages/AllCourses'
-import { LandingPage } from './Components/Pages/LandingPage'
+import { AllCourses } from './Components/Pages/AllCourses.jsx'
+import { LandingPage } from './Components/Pages/LandingPage.jsx'
 
 function App() {
 
