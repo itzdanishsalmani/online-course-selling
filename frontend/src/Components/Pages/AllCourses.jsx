@@ -6,9 +6,13 @@ import PropTypes from 'prop-types';
 function TopBar(){
     const navigate = useNavigate('/');
         
-        function handleClick(){
-            navigate('/')
+        function userClick(){
+            navigate('/register-user')
         }
+        function adminClick(){
+          navigate('/register-admin')
+      }
+
      return (
     
          <div className="fixed w-full">
@@ -19,9 +23,9 @@ function TopBar(){
              </div>
              <div className="flex justify-end flex-grow inline-flex m-4">
                  <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs md:text-sm">
-                     <button>User</button></div>
+                     <button onClick={userClick}>User</button></div>
                  <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs bg-blue-700 md:text-sm">
-                     <button >Admin</button></div>
+                     <button onClick={adminClick}>Admin</button></div>
              </div>
          </div>
          </div>
