@@ -4,16 +4,18 @@ export function UserLogin() {
   const[email,setEmail]=useState('')
   const[password,setPassword]=useState('')
   return (
-    <div> 
-    User <br /> 
-      <input type="email" placeholder="email" onChange={(e)=>{
+    <div className="bg-custom-blue flex flex-col h-screen items-center justify-center"> 
+    <div className="p-4 text-white text-lg border border-blue-900 rounded-3xl "> 
+    <div className="text-2xl">
+    Welcome to HyperDev </div>  <br /> 
+      <input type="email" placeholder="Email" onChange={(e)=>{
         const value = e.target.value;
         setEmail(value);
-      }}/><br />
-      <input type="password" placeholder="password" onChange={(e)=>{
+      }}/><br /><br/>
+      <input type="password" placeholder="Password" onChange={(e)=>{
         const value = e.target.value;
         setPassword(value);
-      }}/><br />
+      }}/><br /> <br />
       <button onClick={()=>{
         fetch('http://localhost:3000/user/signup',{
           method:"POST",
@@ -29,8 +31,7 @@ export function UserLogin() {
           const json = await res.json();
           alert("user added")
       })
-      }}>Sign Up</button> <br />
-
+      }}>Sign Up</button> <br /> <br />
       <button onClick={()=>{
         fetch('http://localhost:3000/user/signin',{
           method:"POST",
@@ -51,6 +52,7 @@ export function UserLogin() {
     }
 })}}> Login</button>
       <br />
+    </div>
     </div>
   );
 }
