@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useState,useEffect } from "react";
+import PropTypes from 'prop-types';
+
 
 function TopBar(){
     const navigate = useNavigate('/');
@@ -43,68 +45,64 @@ function TopBar(){
 
  function CoursesCard(props){
     console.log('Received props:', props); // Log received props to check if data is passed correctly
-
-    return(
-        <div className="flex">
-            
-            <div className="ml-48 w-fit border border-blue-900 rounded-xl p-4">
-            <img src="/MernStack.png" className="w-fit h-auto rounded-xl" alt="MernStack" />
-            <div>
-                <div className="font-bold text-lg">{props.title}</div>
-                <div className="text-gray-600">{props.description}</div>
-                <div className="text-blue-900 font-bold">{props.price}</div>
-                <button className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Buy now</button>
-            </div>
-            </div>
-
-            <div className="ml-8 w-fit border border-blue-900 rounded-xl p-4">
-            <img src="/AI.jpeg" className="w-fit h-auto rounded-xl" alt="AI" />
-            <div >
-                <div className="font-bold text-lg">{props.title}</div>
-                <div className="text-gray-600">{props.description}</div>
-                <div className="text-blue-900 font-bold">${props.price}</div>
-                <button className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Buy now</button>
-            </div>
-        </div>  
-
-        <div className="ml-8 w-fit border border-blue-900 rounded-xl p-4">
-            <img src="/DSA.png" className="w-fit h-auto rounded-xl" alt="DSA" />
-            <div >
-                <div className="font-bold text-lg">{props.title}</div>
-                <div className="text-gray-600">{props.description}</div>
-                <div className="text-blue-900 font-bold">{props.price}</div>
-                <button className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Buy now</button>
-            </div>
-        </div>
-
-    </div>
-    )
- }
-
- export function AllCourses() {
-    const [courses, setCourses] = useState([]);
-
-    useEffect(() => {
-            fetch('http://localhost:3000/user/courses')
-            .then(response=>response.json())
-            .then(data=>setCourses(data.courses))
-            .catch(error => console.error("Error while fetching:", error));
-    }, []);
-
+    const { course } = props; // Destructure course from props
     return (
-        <div>
-            <TopBar/>
-            <AfterTopBar/>
-
-            {courses.map(course => (
-                <CoursesCard
-                    key={course.id}
-                    title={course.title}
-                    description={course.description}
-                    price={course.price}
-                />
-            ))}
-            
+        <div className="border border-blue-900 rounded-xl p-4">
+            <img src="/AI.jpeg,DSA.png" className="w-fit h-auto rounded-xl" alt={course.title} />
+            <div>
+                <div className="font-bold text-lg">{course.title}</div>
+                <div className="text-gray-600">{course.description}</div>
+                <div className="text-blue-900 font-bold">{course.price}</div>
+                <button className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Buy now</button>
+            </div>
         </div>
     );
 }
+
+CoursesCard.propTypes = {
+    course: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+    }).isRequired,
+};
+
+export function AllCourses() {
+    const [courses, setCourses] = useState([]);
+  
+    useEffect(() => {
+      fetch('http://localhost:3000/user/courses')
+        .then(response=>response.json())
+        .then(data=>setCourses(data.courses))
+        .catch(error => console.error("Error while fetching:", error));
+    }, []);
+  
+    return (
+      <div>
+        <TopBar/>
+        <AfterTopBar/>
+  
+        {courses.length > 0 ? (
+          <div className="flex flex-wrap">
+            <div className="w-fit ml-48">
+              <CoursesCard course={courses[0]} />
+            </div>
+            {courses.slice(1).map((course) => (
+              <div key={course._id} className="w-fit ml-4">
+                <CoursesCard course={{
+                  ...course,
+                }}
+              />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <h2 className="text-white">
+            "Oops! No course is currently offered. Return later!"
+          </h2>
+        )}
+  
+      </div>
+    );
+  }
