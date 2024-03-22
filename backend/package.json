@@ -9,6 +9,7 @@
   "author": "danish",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "split": "^1.0.1"
   }
 }

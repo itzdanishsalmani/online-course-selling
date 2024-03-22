@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom"
         function handleClick(){
             navigate('/allcourses')
         }
+        function loginClick(){
+            navigate('/register-user')
+        }
      return (
     
          <div className="fixed w-full">
@@ -16,7 +19,7 @@ import { useNavigate } from "react-router-dom"
              </div>
              <div className="flex justify-end flex-grow inline-flex m-4">
                  <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs md:text-sm">
-                     <button>Login</button></div>
+                     <button onClick={loginClick}>Login</button></div>
                  <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs bg-blue-700 md:text-sm">
                      <button onClick={handleClick}>Join now</button></div>
              </div>

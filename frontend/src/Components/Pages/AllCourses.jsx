@@ -1,13 +1,16 @@
-import { useNavigate } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
 import { useState,useEffect } from "react";
 import PropTypes from 'prop-types';
-
 
 function TopBar(){
     const navigate = useNavigate('/');
         
         function userClick(){
+          if(!localStorage.getItem('token')){
             navigate('/register-user')
+          }else{
+            navigate('/purchasedcourses')
+          }
         }
         function adminClick(){
           navigate('/register-admin')
@@ -23,7 +26,9 @@ function TopBar(){
              </div>
              <div className="flex justify-end flex-grow inline-flex m-4">
                  <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs md:text-sm">
-                     <button onClick={userClick}>User</button></div>
+                     <button onClick={userClick}>Login</button></div>
+                 <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs md:text-sm">
+                     <Link to="/purchasedcourses"><button>My Courses</button></Link></div>
                  <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs bg-blue-700 md:text-sm">
                      <button onClick={adminClick}>Admin</button></div>
              </div>

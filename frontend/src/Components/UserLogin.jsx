@@ -42,9 +42,7 @@ export function UserLogin() {
               const token = data.token;
               localStorage.setItem('token',token);
               console.log('Token is:',token);
-              alert('verified')
-              navigate('/')
-              localStorage.removeItem('token',token)
+              navigate('/purchasedcourses')
               } else {
                 alert("Incorrect username or password"); // Show failure message
             }

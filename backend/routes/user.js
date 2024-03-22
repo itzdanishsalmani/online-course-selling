@@ -45,7 +45,7 @@ router.post('/signin', async (req, res) => {
     }
 });
 
-router.get('/courses',userMiddleware, async (req, res) => {
+router.get('/courses', async (req, res) => {
     // Implement fetching all courses logic
     const response = await Course.find({});
     res.json({
