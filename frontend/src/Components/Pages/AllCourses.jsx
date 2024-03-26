@@ -42,21 +42,6 @@ function TopBar(){
      )
  }
 
- function AfterTopBar(){
-    return(
-        <div className="pt-16 ">
-            <div className="fixed h-full bg-custom-light pl-8 pr-16"><button>Main Menu</button>
-                <div className="element mt-4">
-                    <a href="/" className="font-medium hover:underline">Home</a><br />
-                    <a href="/allcourses" className="font-medium hover:underline">Courses</a>
-                </div>
-            </div>
-
-            <div className="mt-8 mb-8 text-center text-xs md:text-lg ">Courses</div>
-        </div>
-    )
- }
-
  function CoursesCard(props){
   const navigate = useNavigate('/');
   function payment(){
@@ -65,8 +50,8 @@ function TopBar(){
 
     const { course } = props; // Destructure course from props
     return (
-        <div className="border border-blue-900 rounded-xl p-4">
-            <img src="/AI.jpeg,DSA.png" className="w-fit h-auto rounded-xl" alt={course.title} />
+        <div className="border border-blue-900 rounded-xl p-4 ">
+            <img src={course.imageLink} className="w-56 h-36 rounded-xl" alt={course.title} />
             <div>
                 <div className="font-bold text-lg">{course.title}</div>
                 <div className="text-gray-600">{course.description}</div>
@@ -82,6 +67,7 @@ CoursesCard.propTypes = {
         _id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
+        imageLink: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
     }).isRequired,
 };
@@ -99,14 +85,11 @@ export function AllCourses() {
     return (
       <div>
         <TopBar/>
-        <AfterTopBar/>
   
         {courses.length > 0 ? (
-          <div className="flex flex-wrap">
-            <div className="w-fit ml-48">
-              <CoursesCard course={courses[0]} />
-            </div>
-            {courses.slice(1).map((course) => (
+          <div className="pt-24 flex flex-row items-center justify-center">
+            
+            {courses.map((course) => (
               <div key={course._id} className="w-fit ml-4">
                 <CoursesCard course={{
                   ...course,
