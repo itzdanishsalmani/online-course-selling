@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function UserLogin() { 
   const[email,setEmail]=useState('')
@@ -41,7 +41,7 @@ export function UserLogin() {
             if (data.success) {
               const token = data.token;
               localStorage.setItem('token',token);
-              console.log('Token is:',token);
+              console.log('User Token:',token);
               navigate('/purchasedcourses')
               } else {
                 alert("Incorrect username or password"); // Show failure message

@@ -9,6 +9,9 @@ const cors = require('cors')
 app.use(cors())
 // Middleware for parsing request bodies
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded( { extended: true } ));  
+
+// Verify token middleware
 app.use("/admin", adminRouter)
 app.use("/user", userRouter)
 

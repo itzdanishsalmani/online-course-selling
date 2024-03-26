@@ -4,6 +4,7 @@ const userMiddleware = require("../middleware/user");
 const router = Router();
 const { Admin,User,Course } = require("../db");
 const {JWT_SECRET} = require("../config");
+const {newPayment, checkStatus }=require("../PhonePe/PaymentController")
 
 // User Routes
 router.post('/signup', async(req, res) => {
@@ -52,5 +53,8 @@ router.get('/courses', async (req, res) => {
         courses:response
     })
 });
+
+router.post('payment',newPayment);
+router.post('/status/;txtId', checkStatus);
 
 module.exports = router;

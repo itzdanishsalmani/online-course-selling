@@ -13,8 +13,12 @@ function TopBar(){
           }
         }
         function adminClick(){
-          navigate('/register-admin')
+          if(!localStorage.getItem('admin_token')){
+            navigate('/register-admin')
+          }else{
+          navigate('/editcourses')
       }
+    }
 
      return (
     
@@ -34,6 +38,7 @@ function TopBar(){
              </div>
          </div>
          </div>
+         
      )
  }
 
@@ -53,7 +58,11 @@ function TopBar(){
  }
 
  function CoursesCard(props){
-    console.log('Received props:', props); // Log received props to check if data is passed correctly
+  const navigate = useNavigate('/');
+  function payment(){
+    navigate('/paymentpage')
+  }
+
     const { course } = props; // Destructure course from props
     return (
         <div className="border border-blue-900 rounded-xl p-4">
@@ -62,7 +71,7 @@ function TopBar(){
                 <div className="font-bold text-lg">{course.title}</div>
                 <div className="text-gray-600">{course.description}</div>
                 <div className="text-blue-900 font-bold">{course.price}</div>
-                <button className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Buy now</button>
+                <button onClick={payment} className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Buy now</button>
             </div>
         </div>
     );

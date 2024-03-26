@@ -24,16 +24,17 @@ router.post('/signin', async (req, res) => {
     const email = req.body.email;
     const password=req.body.password;
     
-    const admin =await User.find({
+    const admin =await Admin.findOne({
         email,
         password
     })
     
     if (admin){
         const token = jwt.sign({
-            username
+            email
         },JWT_SECRET);
         res.json({
+            success:true,
             token
         })
     }else{
