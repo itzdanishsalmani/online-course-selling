@@ -16,6 +16,7 @@ const UserSchema = mongoose.Schema({
 const CourseSchema = mongoose.Schema({
     title:String,
     description:String,
+    imageLink:String,
     price:Number
 })
 

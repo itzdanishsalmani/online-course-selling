@@ -54,6 +54,10 @@ router.get('/courses', async (req, res) => {
     })
 });
 
+router.post("/purchasedcourses",userMiddleware, (req, res)=>{
+    
+})
+
 router.post('payment',newPayment);
 router.post('/status/;txtId', checkStatus);
 

@@ -15,6 +15,7 @@ const Phonepe = () => {
     const handlePayment = (e)=>{
         e.preventDefault();
         setLoading2(true);
+        console.log("error 1")
         axios.post('api/payment', {...data}).then(res => {  
         setTimeout(() => {
             setLoading2(false);
@@ -58,8 +59,6 @@ const Phonepe = () => {
             </form>
         </div>
     </div>
-    <p className='m-0'>@codesense24</p>
-    <p className='' style={{fontSize: "14px"}}>Subscribe my youtube channel</p>
     </>
   )
 }

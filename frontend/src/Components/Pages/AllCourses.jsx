@@ -19,6 +19,13 @@ function TopBar(){
           navigate('/editcourses')
       }
     }
+        function purchasedCourses(){
+          if(!localStorage.getItem("token")){
+            navigate("/register-user")
+          }else{
+            navigate("/purchasedcourses")
+          }
+        }
 
      return (
     
@@ -32,7 +39,7 @@ function TopBar(){
                  <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs md:text-sm">
                      <button onClick={userClick}>Login</button></div>
                  <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs md:text-sm">
-                     <Link to="/purchasedcourses"><button>My Courses</button></Link></div>
+                     <button onClick={purchasedCourses}>My Courses</button></div>
                  <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs bg-blue-700 md:text-sm">
                      <button onClick={adminClick}>Admin</button></div>
              </div>
@@ -71,6 +78,8 @@ CoursesCard.propTypes = {
         price: PropTypes.number.isRequired,
     }).isRequired,
 };
+export { CoursesCard };
+
 
 export function AllCourses() {
     const [courses, setCourses] = useState([]);
@@ -107,3 +116,4 @@ export function AllCourses() {
       </div>
     );
   }
+

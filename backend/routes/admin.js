@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken")
 const { Router } = require("express");
 const adminMiddleware = require("../middleware/admin");
 const router = Router();
-const { Admin,User,Course } = require("../db");
+const { Admin,Course } = require("../db");
 const {JWT_SECRET} = require("../config");
 
 // Admin Routes
@@ -44,20 +44,20 @@ router.post('/signin', async (req, res) => {
     }
 });
 
-router.post('/courses', adminMiddleware, async(req, res) => {
+router.post('/addcourses', adminMiddleware, async(req, res) => {
     const title = req.body.title;
     const description = req.body.description;
     const imageLink = req.body.imageLink;
     const price = req.body.price;
 
-    const newCourse = await Course.create({
+    await Course.create({
         title,
         description,
         imageLink,
         price
     })
     res.json({
-        msg:"Course created successfully",courseId : newCourse._id
+        msg:"Course created successfully"
     })
 
 });
