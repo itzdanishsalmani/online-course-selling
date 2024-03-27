@@ -53,7 +53,9 @@ export function AddCourses() {
             price
           }),
           headers:{
-            "content-type":"application/json"
+            "content-type":"application/json",
+            "Authorization": `Bearer ${localStorage.getItem('admin_token')}` // Attach the token here
+
           }
         })
         .then(async (res)=>{

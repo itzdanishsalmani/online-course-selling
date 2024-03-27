@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react";
-import { useLinkClickHandler, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CoursesCard } from "./AllCourses";
 
 function TopBar(){    
@@ -67,7 +67,7 @@ export function EditCourses(){
             ))}
           </div>
         ) : (
-          <h2 className="text-white">
+          <h2 className="text-black">
             "Oops! No course is currently offered. Return later!"
           </h2>
         )}

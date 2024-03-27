@@ -44,7 +44,7 @@ router.post('/signin', async (req, res) => {
     }
 });
 
-router.post('/addcourses', adminMiddleware, async(req, res) => {
+router.post('/addcourses',adminMiddleware, async(req, res) => {
     const title = req.body.title;
     const description = req.body.description;
     const imageLink = req.body.imageLink;
