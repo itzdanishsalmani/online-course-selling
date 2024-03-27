@@ -60,7 +60,8 @@ export function AddCourses() {
         })
         .then(async (res)=>{
           const json = await res.json();
-          alert("user added")
+          alert("Course added")
+          navigate("/editcourses")
 
       })
       }}>Add Course</button> </div> <br /> 

@@ -1,12 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AllCourses } from './Components/Pages/AllCourses.jsx'
 import { LandingPage } from './Components/Pages/LandingPage.jsx'
-import { UserLogin } from './Components/Pages/UserLogin.jsx'
-import { AdminLogin } from "./Components/Pages/AdminLogin.jsx"
-import { PurchasedCourses } from "./Components/Pages/PurchasedCourses.jsx";
 import Phonepe from "./Components/Pages/Phonepe.jsx";
-import { EditCourses } from "./Components/Pages/EditCourses.jsx";
-import { AddCourses } from "./Components/Pages/AddCourses.jsx";
+
+import { UserLogin } from './Components/Pages/User/UserLogin.jsx'
+import { PurchasedCourses } from "./Components/Pages/User/PurchasedCourses.jsx";
+
+import { AdminLogin } from "./Components/Pages/Admin/AdminLogin.jsx"
+import { EditCourses } from "./Components/Pages/Admin/EditCourses.jsx";
+import { AddCourses } from "./Components/Pages/Admin/AddCourses.jsx";
+import { DeleteCourses } from "./Components/Pages/Admin/DeleteCourses.jsx";
 
 function App() {
 
@@ -20,6 +23,7 @@ function App() {
         <Route path="/purchasedcourses" element={<PurchasedCourses/>} />
         <Route path="/editcourses" element={<EditCourses/>} />
         <Route path="/editcourses-add" element={<AddCourses/>} />
+        <Route path="/editcourses-delete" element={<DeleteCourses/>} />
         <Route path="/paymentpage" element={<Phonepe/>} />
       </Routes>
     </BrowserRouter>

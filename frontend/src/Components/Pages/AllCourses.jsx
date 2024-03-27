@@ -1,4 +1,4 @@
-import { Link,useNavigate } from "react-router-dom"
+import { useLocation,useNavigate } from "react-router-dom"
 import { useState,useEffect } from "react";
 import PropTypes from 'prop-types';
 
@@ -58,12 +58,15 @@ function TopBar(){
     const { course } = props; // Destructure course from props
     return (
         <div className="border border-blue-900 rounded-xl p-4 ">
-            <img src={course.imageLink} className="w-56 h-36 rounded-xl" alt={course.title} />
+            <img src={course.imageLink} className="w-60 h-36 rounded-xl" alt={course.title} />
             <div>
                 <div className="font-bold text-lg">{course.title}</div>
                 <div className="text-gray-600">{course.description}</div>
                 <div className="text-blue-900 font-bold">{course.price}</div>
                 <button onClick={payment} className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Buy now</button>
+                { location.pathname === '/editcourses-delete' && (
+                  <button className="mt-2 ml-8 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Delete</button>
+                )}
             </div>
         </div>
     );
@@ -95,23 +98,19 @@ export function AllCourses() {
       <div>
         <TopBar/>
   
-        {courses.length > 0 ? (
-          <div className="pt-24 flex flex-row items-center justify-center">
-            
-            {courses.map((course) => (
-              <div key={course._id} className="w-fit ml-4">
-                <CoursesCard course={{
-                  ...course,
-                }}
-              />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <h2 className="text-white">
-            "Oops! No course is currently offered. Return later!"
-          </h2>
-        )}
+        {courses && courses.length > 0 ? (
+        <div className="pt-24 flex flex-row items-center justify-center">
+          {courses.map((course) => (
+            <div key={course._id} className="w-fit ml-4">
+              <CoursesCard course={{ ...course }} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <h2 className="pt-24 flex flex-row items-center justify-center text-black">
+          {courses ? "Oops! No course is currently offered. Return later!" : "Loading..."}
+        </h2>
+      )}
   
       </div>
     );
