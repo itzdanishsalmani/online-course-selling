@@ -1,4 +1,4 @@
-import { useLocation,useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useState,useEffect } from "react";
 import PropTypes from 'prop-types';
 
@@ -64,9 +64,6 @@ function TopBar(){
                 <div className="text-gray-600">{course.description}</div>
                 <div className="text-blue-900 font-bold">{course.price}</div>
                 <button onClick={payment} className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Buy now</button>
-                { location.pathname === '/editcourses-delete' && (
-                  <button className="mt-2 ml-8 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Delete</button>
-                )}
             </div>
         </div>
     );

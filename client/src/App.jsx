@@ -9,7 +9,7 @@ import { PurchasedCourses } from "./Components/Pages/User/PurchasedCourses.jsx";
 import { AdminLogin } from "./Components/Pages/Admin/AdminLogin.jsx"
 import { EditCourses } from "./Components/Pages/Admin/EditCourses.jsx";
 import { AddCourses } from "./Components/Pages/Admin/AddCourses.jsx";
-import { DeleteCourses } from "./Components/Pages/Admin/DeleteCourses.jsx";
+import { UpdateCourse } from "./Components/Pages/Admin/UpdateCourse.jsx";
 
 function App() {
 
@@ -23,7 +23,7 @@ function App() {
         <Route path="/purchasedcourses" element={<PurchasedCourses/>} />
         <Route path="/editcourses" element={<EditCourses/>} />
         <Route path="/editcourses-add" element={<AddCourses/>} />
-        <Route path="/editcourses-delete" element={<DeleteCourses/>} />
+        <Route path="/editcourses-update" element={<UpdateCourse/>} />
         <Route path="/paymentpage" element={<Phonepe/>} />
       </Routes>
     </BrowserRouter>

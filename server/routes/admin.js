@@ -69,4 +69,29 @@ router.get('/courses', adminMiddleware, async (req, res) => {
         courses:response
     })
 });
+
+router.delete('/editcourses/delete', adminMiddleware, async (req,res)=>{
+    const id = req.body.id;
+
+    await Course.findOneAndDelete({
+        _id: id
+    })
+    res.json({
+        msg:"Deleted successfully"
+    })
+})
+
+// router.put('/editcourses/update', adminMiddleware, async (req,res)=> {
+//     const id = req.body.id;
+
+//     await Course.updateOne({
+//         _id:id
+//     },
+//     { $set: { title, description, imageLink, price } } // Set new values for the fields
+//     )
+//     res.json({
+//         msg:"Updated Successfully"
+//     })
+// })
+
 module.exports = router;

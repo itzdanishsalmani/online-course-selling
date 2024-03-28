@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CoursesCard } from "../AllCourses";
 
 function TopBar() {
   const navigate = useNavigate();
@@ -18,13 +17,6 @@ function TopBar() {
       navigate('/editcourses-add')
     }
   }
-  function deleteCourse(){
-    if(!localStorage.getItem('admin_token')){
-      navigate('/register-admin')
-    }else{
-      navigate('/editcourses-delete')
-    }
-  }
 
   return (
     <div className="fixed w-full">
@@ -36,8 +28,6 @@ function TopBar() {
         <div className="flex justify-end flex-grow inline-flex m-4">
           <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs md:text-sm">
             <button onClick={addCourse}>Add Courses</button></div>
-          <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs md:text-sm">
-            <button onClick={deleteCourse}>Delete Courses</button></div>
           <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs bg-blue-700 md:text-sm">
             <button onClick={() => {
               localStorage.removeItem('admin_token')
@@ -48,7 +38,44 @@ function TopBar() {
     </div>
   )
 }
+function CoursesCard(props){
+  const navigate = useNavigate('/');
 
+  function deleteCourse(){
+    fetch('http://localhost:3000/admin/editcourses/delete',{
+      method:'DELETE',
+      body:JSON.stringify({
+        id: props.course._id
+      }),
+      headers:{
+        "Content-type":"application/json",
+        "Authorization":`Bearer ${localStorage.getItem('admin_token')}`
+    }
+  })
+  .then(async (res)=>{
+    const json = await res.json();
+    alert("Course deleted")
+    navigate("/editcourses")
+  })
+ }
+ function updateCourse(){
+  navigate('/editcourses-update')
+ }
+
+    const { course } = props; // Destructure course from props
+    return (
+        <div className="border border-blue-900 rounded-xl p-4 ">
+            <img src={course.imageLink} className="w-60 h-36 rounded-xl" alt={course.title} />
+            <div>
+                <div className="font-bold text-lg">{course.title}</div>
+                <div className="text-gray-600">{course.description}</div>
+                <div className="text-blue-900 font-bold">{course.price}</div>
+                  <button onClick={updateCourse} className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Edit</button>
+                  <button onClick={deleteCourse} className="mt-2 ml-8 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Delete</button>
+            </div>
+        </div>
+    );
+}
 export function EditCourses() {
   const [courses, setCourses] = useState([]);
 
