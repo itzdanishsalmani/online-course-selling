@@ -26,7 +26,7 @@ export function AdminLogin() {
 
       <div className="text-center p-2 border border-custom-light rounded-xl text-white text-lg bg-blue-700 md:text-base">
       <button onClick={()=>{
-        fetch('http://localhost:3000/user/signin',{
+        fetch('http://localhost:3000//user/signin',{
           method:"POST",
           body:JSON.stringify({
             email:email,
@@ -53,7 +53,7 @@ export function AdminLogin() {
       <br />
       <div className="text-center p-2 border border-custom-light rounded-xl text-white text-lg bg-blue-700 md:text-base">
       <button onClick={()=>{
-        fetch('http://localhost:3000/user/signup',{
+        fetch('http://localhost:3000//user/signup',{
           method:"POST",
           body:JSON.stringify({
             email:email,

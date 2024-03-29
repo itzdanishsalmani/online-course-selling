@@ -42,7 +42,7 @@ function CoursesCard(props){
   const navigate = useNavigate('/');
 
   function deleteCourse(){
-    fetch('http://localhost:3000/admin/editcourses/delete',{
+    fetch('http://localhost:3000//admin/editcourses/delete',{
       method:'DELETE',
       body:JSON.stringify({
         id: props.course._id
@@ -80,7 +80,7 @@ export function EditCourses() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/user/courses')
+    fetch('http://localhost:3000//user/courses')
       .then(response => response.json())
       .then(data => setCourses(data.courses))
       .catch(error => console.error("Error while fetching:", error));
