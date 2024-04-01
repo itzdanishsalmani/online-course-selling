@@ -58,7 +58,7 @@ function TopBar(){
     const { course } = props; // Destructure course from props
     return (
         <div className="border border-blue-900 rounded-xl p-4 ">
-            <img src={course.imageLink} className="w-60 h-36 rounded-xl" alt={course.title} />
+            <img src={course.imageLink} className="w-60 h-36 rounded-xl" alt={course._id} />
             <div>
                 <div className="font-bold text-lg">{course.title}</div>
                 <div className="text-gray-600">{course.description}</div>

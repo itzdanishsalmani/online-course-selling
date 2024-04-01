@@ -33,7 +33,7 @@ export function AdminLogin() {
             password:password
           }),
           headers:{
-            "content-type":"application/json"
+            "Content-Type":"application/json"
           }
         }).then(response => response.json())
         .then(data => {
@@ -60,7 +60,7 @@ export function AdminLogin() {
             password:password
           }),
           headers:{
-            "content-type":"application/json"
+            "Content-Type":"application/json"
           }
         })
         .then(async (res)=>{

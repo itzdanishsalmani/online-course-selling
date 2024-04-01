@@ -55,7 +55,7 @@ export function UpdateCourse(props) {
                                 price
                             }),
                             headers: {
-                                "content-type": "application/json",
+                                "Content-Type": "application/json",
                                 "Authorization": `Bearer ${localStorage.getItem('admin_token')}` // Attach the token here
 
                             }

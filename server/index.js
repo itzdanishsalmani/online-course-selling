@@ -11,11 +11,6 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded( { extended: true } ));  
 
-app.use("/", (req, res)=>{
-    res.send(
-        "Server is running"
-        )
-})
 // Verify token middleware
 app.use("/admin", adminRouter)
 app.use("/user", userRouter)
