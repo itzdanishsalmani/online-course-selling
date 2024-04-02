@@ -46,7 +46,7 @@ export function UpdateCourse(props) {
                 <div className="text-center p-2 border border-custom-light rounded-xl text-white text-lg bg-blue-700 md:text-base">
                     <button onClick={() => {
                         const id = props.course._id;
-                        fetch(`http://localhost:3000//admin/editcourse/update/${id}`, {
+                        fetch(`http://localhost:3000/admin/editcourse/update/${id}`, {
                             method: "PUT",
                             body: JSON.stringify({
                                 title,

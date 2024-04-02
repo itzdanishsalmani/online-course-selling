@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function TopBar() {
@@ -8,7 +8,7 @@ function TopBar() {
     if (!localStorage.getItem('admin_token')) {
       navigate('/register-admin')
     }
-  }, ['admin_token'])
+  }, []);
 
   function addCourse() {
     if (!localStorage.getItem('admin_token')) {
@@ -38,53 +38,62 @@ function TopBar() {
     </div>
   )
 }
-function CoursesCard(props){
-  const navigate = useNavigate('/');
 
-  function deleteCourse(){
-    fetch('http://localhost:3000/admin/editcourses/delete',{
-      method:'DELETE',
-      body:JSON.stringify({
-        id: props.course._id
+function CoursesCard({ course, openEditPopup }) {
+  const navigate = useNavigate();
+
+  function deleteCourse() {
+    fetch('http://localhost:3000/admin/editcourses/delete', {
+      method: 'DELETE',
+      body: JSON.stringify({
+        id: course._id
       }),
-      headers:{
-        "Content-type":"application/json",
-        "Authorization":`Bearer ${localStorage.getItem('admin_token')}`
-    }
-  })
-  .then(async (res)=>{
-    const json = await res.json();
-    alert("Course deleted")
-    navigate("/editcourses")
-  })
- }
- function updateCourse(){
-  navigate('/editcourses-update')
- }
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem('admin_token')}`
+      }
+    })
+      .then(async (res) => {
+        const json = await res.json();
+        alert("Course deleted");
+        navigate("/editcourses");
+      })
+  }
 
-    const { course } = props; // Destructure course from props
-    return (
-        <div className="border border-blue-900 rounded-xl p-4 ">
-            <img src={course.imageLink} className="w-60 h-36 rounded-xl" alt={course.title} />
-            <div>
-                <div className="font-bold text-lg">{course.title}</div>
-                <div className="text-gray-600">{course.description}</div>
-                <div className="text-blue-900 font-bold">{course.price}</div>
-                  <button onClick={updateCourse} className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Edit</button>
-                  <button onClick={deleteCourse} className="mt-2 ml-8 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Delete</button>
-            </div>
-        </div>
-    );
+  return (
+    <div className="border border-blue-900 rounded-xl p-4 ">
+      <img src={course.imageLink} className="w-60 h-36 rounded-xl" alt={course.title} />
+      <div>
+        <div className="font-bold text-lg">{course.title}</div>
+        <div className="text-gray-600">{course.description}</div>
+        <div className="text-blue-900 font-bold">{course.price}</div>
+        <button onClick={() => openEditPopup(course)} className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Edit</button>
+        <button onClick={deleteCourse} className="mt-2 ml-8 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Delete</button>
+      </div>
+    </div>
+  );
 }
+
 export function EditCourses() {
   const [courses, setCourses] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:3000/user/courses')
       .then(response => response.json())
       .then(data => setCourses(data.courses))
       .catch(error => console.error("Error while fetching:", error));
-  }, []);
+  }, [courses]);
+
+  function openEditPopup(course) {
+    setSelectedCourse(course);
+    setIsEditing(true);
+  }
+
+  function closeEditPopup() {
+    setIsEditing(false);
+  }
 
   return (
     <div>
@@ -94,7 +103,7 @@ export function EditCourses() {
         <div className="pt-24 flex flex-row items-center justify-center">
           {courses.map((course) => (
             <div key={course._id} className="w-fit ml-4">
-              <CoursesCard course={{ ...course }} />
+              <CoursesCard course={course} openEditPopup={openEditPopup} />
             </div>
           ))}
         </div>
@@ -104,6 +113,55 @@ export function EditCourses() {
         </h2>
       )}
 
+      {isEditing && (
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75 flex items-center justify-center">
+          <EditPopup closeEditPopup={closeEditPopup} selectedCourse={selectedCourse} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function EditPopup({ closeEditPopup, selectedCourse }) {
+  const [title, setTitle] = useState(selectedCourse.title);
+  const [description, setDescription] = useState(selectedCourse.description);
+  const [imageLink, setImageLink] = useState(selectedCourse.imageLink);
+  const [price, setPrice] = useState(selectedCourse.price);
+
+  function updateCourse() {
+    fetch(`http://localhost:3000/admin/editcourse/update/${selectedCourse._id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        title,
+        description,
+        imageLink,
+        price
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem('admin_token')}`
+      }
+    })
+      .then(async (res) => {
+        const json = await res.json();
+        alert("Course Updated");
+        closeEditPopup();
+      })
+  }
+
+  return (
+    <div className="bg-white p-8 text-black text-lg border border-blue-900 rounded-2xl">
+      <div className="text-center font-medium text-custom-blue text-2xl">
+        Welcome to HyperDev
+      </div>
+      <div className="p-2">Fill to update Course</div>
+      <input className="p-2 rounded-xl text-black border border-black" type="String" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} /> <br /> <br />
+      <input className="p-2 rounded-xl text-black border border-black" type="String" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} /> <br /> <br />
+      <input className="p-2 rounded-xl text-black border border-black" type="link" placeholder="imageLink" value={imageLink} onChange={(e) => setImageLink(e.target.value)} /> <br /> <br />
+      <input className="p-2 rounded-xl text-black border border-black" type="number" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} /> <br /> <br />
+      <div className="text-center p-2 border border-custom-light rounded-xl text-white text-lg bg-blue-700 md:text-base">
+        <button onClick={updateCourse}>Update Course</button>
+      </div> <br />
     </div>
   );
 }
