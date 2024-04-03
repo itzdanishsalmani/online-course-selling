@@ -81,17 +81,21 @@ router.delete('/editcourses/delete', adminMiddleware, async (req,res)=>{
     })
 })
 
-// router.put('/editcourses/update', adminMiddleware, async (req,res)=> {
-//     const id = req.body.id;
-
-//     await Course.updateOne({
-//         _id:id
-//     },
-//     { $set: { title, description, imageLink, price } } // Set new values for the fields
-//     )
-//     res.json({
-//         msg:"Updated Successfully"
-//     })
-// })
+router.put('/editcourse/update/:id', adminMiddleware, async (req, res) => {
+    const courseId = req.params.id;
+    const { title, description, imageLink, price } = req.body;
+  
+    try {
+      const updatedCourse = await Course.findByIdAndUpdate(
+        courseId,
+        { title, description, imageLink, price }
+      );
+  
+      res.status(200).json(updatedCourse);
+    } catch (error) {
+      console.error('Error updating course:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
 module.exports = router;
