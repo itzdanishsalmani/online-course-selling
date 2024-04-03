@@ -4,12 +4,11 @@ import { useNavigate } from "react-router-dom";
 function TopBar() {
   const navigate = useNavigate();
 
-  useEffect(() => {
+useEffect(() => {
     if (!localStorage.getItem("admin_token")) {
       navigate("/register-admin");
     }
   }, ["admin_token"]);
-  }, []);
 
   function addCourse() {
     if (!localStorage.getItem("admin_token")) {
