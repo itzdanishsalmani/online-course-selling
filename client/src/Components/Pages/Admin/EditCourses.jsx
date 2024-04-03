@@ -5,16 +5,17 @@ function TopBar() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!localStorage.getItem('admin_token')) {
-      navigate('/register-admin')
+    if (!localStorage.getItem("admin_token")) {
+      navigate("/register-admin");
     }
+  }, ["admin_token"]);
   }, []);
 
   function addCourse() {
-    if (!localStorage.getItem('admin_token')) {
-      navigate("/register-admin")
+    if (!localStorage.getItem("admin_token")) {
+      navigate("/register-admin");
     } else {
-      navigate('/editcourses-add')
+      navigate("/editcourses-add");
     }
   }
 
@@ -22,28 +23,38 @@ function TopBar() {
     <div className="fixed w-full">
       <div className="bg-custom-blue font-sans flex border border-custom-light">
         <div className="flex items-center p-3 inline-flex">
-          <img src="/logo.png" className="w-10 h-10 rounded-3xl" alt="logo"></img>
+          <img
+            src="/logo.png"
+            className="w-10 h-10 rounded-3xl"
+            alt="logo"
+          ></img>
           <div className="ml-1 text-white text-xl font-bold">HyperDev</div>
         </div>
         <div className="flex justify-end flex-grow inline-flex m-4">
           <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs md:text-sm">
-            <button onClick={addCourse}>Add Courses</button></div>
+            <button onClick={addCourse}>Add Courses</button>
+          </div>
           <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs bg-blue-700 md:text-sm">
-            <button onClick={() => {
-              localStorage.removeItem('admin_token')
-              navigate("/")
-            }}>Logout</button></div>
+            <button
+              onClick={() => {
+                localStorage.removeItem("admin_token");
+                navigate("/");
+              }}
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function CoursesCard({ course, openEditPopup }) {
   const navigate = useNavigate();
 
   function deleteCourse() {
-    fetch('http://localhost:3000/admin/editcourses/delete', {
+    fetch(`{import.meta.env.VITE_SERVER_LOCATION}/admin/editcourses/delete`, {
       method: 'DELETE',
       body: JSON.stringify({
         id: course._id
@@ -67,6 +78,18 @@ function CoursesCard({ course, openEditPopup }) {
         <div className="font-bold text-lg">{course.title}</div>
         <div className="text-gray-600">{course.description}</div>
         <div className="text-blue-900 font-bold">{course.price}</div>
+        <button
+          onClick={updateCourse}
+          className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+        >
+          Edit
+        </button>
+        <button
+          onClick={deleteCourse}
+          className="mt-2 ml-8 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+        >
+          Delete
+        </button>
         <button onClick={() => openEditPopup(course)} className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Edit</button>
         <button onClick={deleteCourse} className="mt-2 ml-8 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Delete</button>
       </div>
@@ -80,10 +103,10 @@ export function EditCourses() {
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/user/courses')
-      .then(response => response.json())
-      .then(data => setCourses(data.courses))
-      .catch(error => console.error("Error while fetching:", error));
+    fetch(`${import.meta.env.VITE_SERVER_LOCATION}/user/courses`)
+      .then((response) => response.json())
+      .then((data) => setCourses(data.courses))
+      .catch((error) => console.error("Error while fetching:", error));
   }, [courses]);
 
   function openEditPopup(course) {
@@ -109,7 +132,9 @@ export function EditCourses() {
         </div>
       ) : (
         <h2 className="pt-24 flex flex-row items-center justify-center text-black">
-          {courses ? "Oops! No course is currently offered. Return later!" : "Loading..."}
+          {courses
+            ? "Oops! No course is currently offered. Return later!"
+            : "Loading..."}
         </h2>
       )}
 
@@ -129,7 +154,7 @@ function EditPopup({ closeEditPopup, selectedCourse }) {
   const [price, setPrice] = useState(selectedCourse.price);
 
   function updateCourse() {
-    fetch(`http://localhost:3000/admin/editcourse/update/${selectedCourse._id}`, {
+    fetch(`${import.meta.env.VITE_SERVER_LOCATION}/editcourse/update/${selectedCourse._id}`, {
       method: "PUT",
       body: JSON.stringify({
         title,
