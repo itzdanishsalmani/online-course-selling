@@ -2,8 +2,8 @@ const jwt = require("jsonwebtoken")
 const { Router } = require("express");
 const userMiddleware = require("../middleware/user");
 const router = Router();
-const { Admin,User,Course } = require("../db");
-const {JWT_SECRET} = require("../config");
+const { User,Course } = require("../db");
+const {JWT_SECRET} = require("../middleware/user");
 const {newPayment, checkStatus }=require("../PhonePe/PaymentController")
 
 // User Routes
