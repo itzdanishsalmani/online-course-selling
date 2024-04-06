@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
             navigate('/allcourses')
         }
         function loginClick(){
-            navigate('/register-user')
+            navigate('/register/user')
         }
      return (
     

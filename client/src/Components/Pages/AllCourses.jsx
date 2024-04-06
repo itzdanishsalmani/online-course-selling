@@ -7,21 +7,21 @@ function TopBar() {
 
   function userClick() {
     if (!localStorage.getItem("token")) {
-      navigate("/register-user");
+      navigate("/register/user");
     } else {
       navigate("/purchasedcourses");
     }
   }
   function adminClick() {
     if (!localStorage.getItem("admin_token")) {
-      navigate("/register-admin");
+      navigate("/register/admin");
     } else {
       navigate("/editcourses");
     }
   }
   function purchasedCourses() {
     if (!localStorage.getItem("token")) {
-      navigate("/register-user");
+      navigate("/register/user");
     } else {
       navigate("/purchasedcourses");
     }
@@ -98,7 +98,7 @@ export function AllCourses() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    fetch(`${VITE_SERVER_LOCATION}/user/courses`)
+    fetch('https://online-course-selling-server.vercel.app/user/courses')
       .then((response) => response.json())
       .then((data) => setCourses(data.courses))
       .catch((error) => console.error("Error while fetching:", error));

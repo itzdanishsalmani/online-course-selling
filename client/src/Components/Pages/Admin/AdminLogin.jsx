@@ -26,7 +26,7 @@ export function AdminLogin() {
 
       <div className="text-center p-2 border border-custom-light rounded-xl text-white text-lg bg-blue-700 md:text-base">
       <button onClick={()=>{
-        fetch('http://localhost:3000//user/signin',{
+        fetch('https://online-course-selling-server.vercel.app/admin/signin',{
           method:"POST",
           body:JSON.stringify({
             email:email,
@@ -41,7 +41,7 @@ export function AdminLogin() {
             const token = data.token;
             localStorage.setItem('admin_token',token);
             console.log(' Admin Token :',token);
-            navigate('/')
+            navigate('/editcourses')
             } else {
               alert("Incorrect username or password"); // Show failure message
           }
@@ -53,7 +53,7 @@ export function AdminLogin() {
       <br />
       <div className="text-center p-2 border border-custom-light rounded-xl text-white text-lg bg-blue-700 md:text-base">
       <button onClick={()=>{
-        fetch('http://localhost:3000//user/signup',{
+        fetch('https://online-course-selling-server.vercel.app/admin/signup',{
           method:"POST",
           body:JSON.stringify({
             email:email,

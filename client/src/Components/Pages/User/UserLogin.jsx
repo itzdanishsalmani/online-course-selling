@@ -35,7 +35,7 @@ export function UserLogin() {
         <div className="text-center p-2 border border-custom-light rounded-xl text-white text-lg bg-blue-700 md:text-base">
           <button
             onClick={() => {
-              fetch(`${import.meta.env.VITE_SERVER_LOCATION}/user/signin`, {
+              fetch('https://online-course-selling-server.vercel.app/user/signin', {
                 method: "POST",
                 body: JSON.stringify({
                   email: email,
@@ -68,7 +68,7 @@ export function UserLogin() {
         <div className="text-center p-2 border border-custom-light rounded-xl text-white text-lg bg-blue-700 md:text-base">
           <button
             onClick={() => {
-              fetch(`${import.meta.env.VITE_SERVER_LOCATION}/user/signup`, {
+              fetch('https://online-course-selling-server.vercel.app/user/signup', {
                 method: "POST",
                 body: JSON.stringify({
                   email: email,

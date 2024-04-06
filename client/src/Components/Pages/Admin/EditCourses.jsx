@@ -6,15 +6,15 @@ function TopBar() {
 
 useEffect(() => {
     if (!localStorage.getItem("admin_token")) {
-      navigate("/register-admin");
+      navigate("/register/admin");
     }
   }, ["admin_token"]);
 
   function addCourse() {
     if (!localStorage.getItem("admin_token")) {
-      navigate("/register-admin");
+      navigate("/register/admin");
     } else {
-      navigate("/editcourses-add");
+      navigate("/editcourses/add");
     }
   }
 
@@ -48,12 +48,11 @@ useEffect(() => {
     </div>
   );
 }
-
 function CoursesCard({ course, openEditPopup }) {
   const navigate = useNavigate();
 
   function deleteCourse() {
-    fetch(`{import.meta.env.VITE_SERVER_LOCATION}/admin/editcourses/delete`, {
+    fetch('https://online-course-selling-server.vercel.app/admin/editcourses/delete', {
       method: 'DELETE',
       body: JSON.stringify({
         id: course._id
@@ -68,6 +67,10 @@ function CoursesCard({ course, openEditPopup }) {
         alert("Course deleted");
         navigate("/editcourses");
       })
+  }
+
+  function updateCourse() {
+    openEditPopup(course);
   }
 
   return (
@@ -89,8 +92,6 @@ function CoursesCard({ course, openEditPopup }) {
         >
           Delete
         </button>
-        <button onClick={() => openEditPopup(course)} className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Edit</button>
-        <button onClick={deleteCourse} className="mt-2 ml-8 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700">Delete</button>
       </div>
     </div>
   );
@@ -102,7 +103,7 @@ export function EditCourses() {
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_SERVER_LOCATION}/user/courses`)
+    fetch('https://online-course-selling-server.vercel.app/user/courses')
       .then((response) => response.json())
       .then((data) => setCourses(data.courses))
       .catch((error) => console.error("Error while fetching:", error));
@@ -153,7 +154,7 @@ function EditPopup({ closeEditPopup, selectedCourse }) {
   const [price, setPrice] = useState(selectedCourse.price);
 
   function updateCourse() {
-    fetch(`${import.meta.env.VITE_SERVER_LOCATION}/editcourse/update/${selectedCourse._id}`, {
+    fetch(`https://online-course-selling-server.vercel.app/admin/editcourse/update/${selectedCourse._id}`, {
       method: "PUT",
       body: JSON.stringify({
         title,

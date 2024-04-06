@@ -9,7 +9,7 @@ export function AddCourses() {
   const navigate = useNavigate('/')
 
   if(!localStorage.getItem('admin_token')){
-    navigate("/register-admin")
+    navigate("/register/admin")
   }
 
   return (
@@ -44,7 +44,7 @@ export function AddCourses() {
       
       <div className="text-center p-2 border border-custom-light rounded-xl text-white text-lg bg-blue-700 md:text-base">
       <button onClick={()=>{
-        fetch('http://localhost:3000/admin/addcourses',{
+        fetch('https://online-course-selling-server.vercel.app/admin/addcourses',{
           method:"POST",
           body:JSON.stringify({
             title,

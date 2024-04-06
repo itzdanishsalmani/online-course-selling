@@ -16,12 +16,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage/>} />
-        <Route path="/register-user" element={<UserLogin/>} />
-        <Route path='/register-admin' element={<AdminLogin/>}/>
+        <Route path="/register/user" element={<UserLogin/>} />
+        <Route path='/register/admin' element={<AdminLogin/>}/>
         <Route path="/allcourses" element={<AllCourses/>} />
         <Route path="/purchasedcourses" element={<PurchasedCourses/>} />
         <Route path="/editcourses" element={<EditCourses/>} />
-        <Route path="/editcourses-add" element={<AddCourses/>} />
+        <Route path="/editcourses/add" element={<AddCourses/>} />
         <Route path="/paymentpage" element={<Phonepe/>} />
       </Routes>
     </BrowserRouter>

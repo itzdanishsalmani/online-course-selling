@@ -6,7 +6,7 @@ function TopBar() {
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
-      navigate("/register-user");
+      navigate("/register/user");
     }
   }, ["token"]);
 
