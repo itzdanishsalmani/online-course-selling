@@ -4,7 +4,7 @@ const app = express();
 const adminRouter = require("./routes/admin")
 const userRouter = require("./routes/user");
 const cors = require('cors')
-
+require("./db/index")
 app.use(cors())
 // Middleware for parsing request bodies
 app.use(bodyParser.json());
