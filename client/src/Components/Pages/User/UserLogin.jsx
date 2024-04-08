@@ -36,32 +36,42 @@ export function UserLogin() {
           <button
             onClick={() => {
               fetch('https://online-course-selling-server.vercel.app/user/signin', {
-                method: "POST",
-                body: JSON.stringify({
-                  email: email,
-                  password: password,
-                }),
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              })
-                .then((response) => response.json())
-                .then((data) => {
-                  if (data.success) {
-                    const token = data.token;
-                    localStorage.setItem("token", token);
-                    console.log("User Token:", token);
-                    navigate("/purchasedcourses");
-                  } else {
-                    alert("Incorrect username or password"); // Show failure message
-                  }
-                });
+  method: "POST",
+  body: JSON.stringify({
+    email: email,
+    password: password,
+  }),
+  headers: {
+    "Content-Type": "application/json",
+  },
+})
+.then((response) => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+})
+.then((data) => {
+  // Handle successful response
+  if (data.success) {
+    const token = data.token;
+    localStorage.setItem("token", token);
+    console.log("User Token:", token);
+    navigate("/purchasedcourses");
+  } else {
+    alert("Incorrect username or password");
+  }
+})
+.catch((error) => {
+  console.error('Error:', error);
+  // Handle fetch errors here
+});
+
             }}
           >
-            {" "}
             Login
-          </button>{" "}
-        </div>{" "}
+          </button>
+        </div>
         <br />
         <div className="pl-2">Don't have an account? Signup</div>
         <br />

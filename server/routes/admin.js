@@ -1,9 +1,9 @@
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 const { Router } = require("express");
-const adminMiddleware = require("../middleware/admin");
+const {JWT_SECRET,adminMiddleware} = require("../middleware/admin");
 const router = Router();
 const { Admin,Course } = require("../db");
-const {JWT_SECRET} = require("../middleware/admin");
+
 
 // Admin Routes
 router.post('/signup', async(req, res) => {

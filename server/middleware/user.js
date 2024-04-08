@@ -18,4 +18,4 @@ function userMiddleware(req,res,next){
     }
 }
 
-module.exports = userMiddleware
+module.exports = {JWT_SECRET, userMiddleware }
