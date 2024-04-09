@@ -7,7 +7,8 @@ const AdminSchema = mongoose.Schema({
 
 const UserSchema = mongoose.Schema({
     email:String,
-    password:String
+    password:String,
+    purchasedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }]
 })
 
 const CourseSchema = mongoose.Schema({

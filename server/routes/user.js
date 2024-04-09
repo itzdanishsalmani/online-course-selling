@@ -57,6 +57,33 @@ router.post("/purchasedcourses",userMiddleware, (req, res)=>{
     
 })
 
+router.put("/buycourse/:id", userMiddleware, async (req, res) => {
+    const courseId = req.params.id;
+    const userEmail = req.body.userEmail; // Get the user's email from the request body
+
+    try {
+        // Find the user by email and update the purchasedCourses array
+        const user = await User.findOneAndUpdate(
+            { email: userEmail },
+            { $addToSet: { purchasedCourses: courseId } },
+            { new: true } // Return the updated user document
+        );
+
+        if (user) {
+            res.status(200).json({
+                msg: "Course bought successfully",
+            });
+        } else {
+            // Handle case where user is not found
+            res.status(404).json({ error: "User not found" });
+        }
+    } catch (error) {
+        console.error("Error updating user's purchased courses:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+  
+
 router.post('payment',newPayment);
 router.post('/status/;txtId', checkStatus);
 

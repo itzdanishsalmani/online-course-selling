@@ -55,9 +55,32 @@ function TopBar() {
 }
 
 function CoursesCard(props) {
-  const navigate = useNavigate("/");
-  function payment() {
-    navigate("/paymentpage");
+
+  function buyNow(selectedCourseId, userEmail) {
+    fetch(`https://online-course-selling-server.vercel.app/user/buycourse/${selectedCourseId}`, {
+      method: "PUT",
+      body:JSON.stringify({
+        userEmail
+      }),headers:{
+        "Content-Type":"application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}` // Attach the token here
+      }
+    })
+      .then(async (res) => {
+        if (res.ok) {
+          const json = await res.json();
+          alert("You bought a Course");
+          // Perform any additional actions after purchase if needed
+        } else {
+          // Handle error response from server
+          const error = await res.json();
+          alert(`Failed to buy course: ${error.message}`);
+        }
+      })
+      .catch((error) => {
+        console.error("Error buying course:", error);
+        alert("Failed to buy course. Please try again later.");
+      });
   }
 
   const { course } = props; // Destructure course from props
@@ -73,7 +96,10 @@ function CoursesCard(props) {
         <div className="text-gray-600">{course.description}</div>
         <div className="text-blue-900 font-bold">{course.price}</div>
         <button
-          onClick={payment}
+        onClick={() => {
+          const userEmail = localStorage.getItem("email");
+          buyNow(course._id, userEmail);
+        }}
           className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700"
         >
           Buy now
@@ -119,8 +145,8 @@ export function AllCourses() {
       ) : (
         <h2 className="pt-24 flex flex-row items-center justify-center text-black">
           {courses
-            ? "Oops! No course is currently offered. Return later!"
-            : "Loading..."}
+            ? "Loading..."
+            : "Oops! No course is currently offered. Return later!"}
         </h2>
       )}
     </div>

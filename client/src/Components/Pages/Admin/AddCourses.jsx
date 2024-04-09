@@ -55,7 +55,6 @@ export function AddCourses() {
           headers:{
             "Content-Type":"application/json",
             "Authorization": `Bearer ${localStorage.getItem('admin_token')}` // Attach the token here
-
           }
         })
         .then(async (res)=>{
