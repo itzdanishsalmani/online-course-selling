@@ -63,8 +63,9 @@ function CoursesCard(props) {
     // Check if token is available
     const token = localStorage.getItem('token');
     if (!token) {
-        alert("Token not found. Please login again.");
-        return;
+        alert("You can buy after Login.");
+        navigate("/register/user")
+         return;
     }
 
     fetch(`https://online-course-selling-server.vercel.app/user/buycourse/${selectedCourseId}`, {
