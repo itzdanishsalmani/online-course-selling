@@ -30,12 +30,12 @@ router.post('/signin', async (req, res) => {
     })
     
     if (admin){
-        const token = jwt.sign({
+        const admin_token = jwt.sign({
             email
         },JWT_SECRET);
         res.json({
             success:true,
-            token
+            admin_token
         })
     }else{
         res.status(411).json({
@@ -60,14 +60,6 @@ router.post('/addcourses',adminMiddleware, async(req, res) => {
         msg:"Course created successfully"
     })
 
-});
-
-router.get('/courses', adminMiddleware, async (req, res) => {
-    // Implement fetching all courses logic
-    const response = await Course.find({});
-    res.json({
-        courses:response
-    })
 });
 
 router.delete('/editcourses/delete', adminMiddleware, async (req,res)=>{

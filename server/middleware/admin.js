@@ -17,4 +17,4 @@ function adminMiddleware(req,res,next){
         })
     }
 }
-module.exports = {JWT_SECRET, adminMiddleware}
+module.exports = {JWT_SECRET,adminMiddleware}

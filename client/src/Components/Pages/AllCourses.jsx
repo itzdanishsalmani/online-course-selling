@@ -56,33 +56,6 @@ function TopBar() {
 
 function CoursesCard(props) {
 
-  function buyNow(selectedCourseId, userEmail) {
-    fetch(`https://online-course-selling-server.vercel.app/user/buycourse/${selectedCourseId}`, {
-      method: "PUT",
-      body:JSON.stringify({
-        userEmail
-      }),headers:{
-        "Content-Type":"application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}` // Attach the token here
-      }
-    })
-      .then(async (res) => {
-        if (res.ok) {
-          const json = await res.json();
-          alert("You bought a Course");
-          // Perform any additional actions after purchase if needed
-        } else {
-          // Handle error response from server
-          const error = await res.json();
-          alert(`Failed to buy course: ${error.message}`);
-        }
-      })
-      .catch((error) => {
-        console.error("Error buying course:", error);
-        alert("Failed to buy course. Please try again later.");
-      });
-  }
-
   const { course } = props; // Destructure course from props
   return (
     <div className="border border-blue-900 rounded-xl p-4 ">
@@ -96,10 +69,6 @@ function CoursesCard(props) {
         <div className="text-gray-600">{course.description}</div>
         <div className="text-blue-900 font-bold">{course.price}</div>
         <button
-        onClick={() => {
-          const userEmail = localStorage.getItem("email");
-          buyNow(course._id, userEmail);
-        }}
           className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700"
         >
           Buy now
@@ -124,7 +93,7 @@ export function AllCourses() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    fetch('https://online-course-selling-server.vercel.app/user/courses')
+    fetch('https:https://online-course-selling-client.vercel.app/user/courses')
       .then((response) => response.json())
       .then((data) => setCourses(data.courses))
       .catch((error) => console.error("Error while fetching:", error));
