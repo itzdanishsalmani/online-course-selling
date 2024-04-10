@@ -16,6 +16,10 @@ app.use(bodyParser.urlencoded( { extended: true } ));
 app.use("/admin", adminRouter)
 app.use("/user", userRouter)
 
+app.get("/", (req, res) => {
+    res.send("Successfully connected to server.");
+  });
+
 const PORT = 8000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

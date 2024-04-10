@@ -55,27 +55,70 @@ function TopBar() {
 }
 
 function CoursesCard(props) {
+  
+  function buyNow(selectedCourseId, email) {
+    // Log email to the console to check if it's retrieved correctly
+    console.log("User Email:", email);
 
-  const { course } = props; // Destructure course from props
-  return (
+    // Check if token is available
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert("Token not found. Please login again.");
+        return;
+    }
+
+    fetch(`https://online-course-selling-server.vercel.app/user/buycourse/${selectedCourseId}`, {
+        method: "POST",
+        body: JSON.stringify({
+            email
+        }),
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    })
+    .then(async (res) => {
+        if (!res.ok) {
+            const error = await res.json();
+            throw new Error(error.message || "Failed to purchase course");
+        }
+        const json = await res.json();
+        alert("Course Purchased");
+    })
+    .catch(error => {
+        alert(error.message || "Failed to purchase course");
+    });
+}
+
+const { course } = props; // Destructure course from props
+
+// Retrieve email from localStorage
+const email = localStorage.getItem("email");
+// Log email to the console to check if it's retrieved correctly
+console.log("User Email:", email);
+
+return (
     <div className="border border-blue-900 rounded-xl p-4 ">
-      <img
-        src={course.imageLink}
-        className="w-60 h-36 rounded-xl"
-        alt={course._id}
-      />
-      <div>
-        <div className="font-bold text-lg">{course.title}</div>
-        <div className="text-gray-600">{course.description}</div>
-        <div className="text-blue-900 font-bold">{course.price}</div>
-        <button
-          className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-        >
-          Buy now
-        </button>
-      </div>
+        <img
+            src={course.imageLink}
+            className="w-60 h-36 rounded-xl"
+            alt={course._id}
+        />
+        <div>
+            <div className="font-bold text-lg">{course.title}</div>
+            <div className="text-gray-600">{course.description}</div>
+            <div className="text-blue-900 font-bold">{course.price}</div>
+            <button
+                onClick={()=>{
+                    buyNow(course._id, email)
+                }}
+                className="mt-2 bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+            >
+                Buy now
+            </button>
+        </div>
     </div>
-  );
+);
 }
 
 CoursesCard.propTypes = {
@@ -93,7 +136,7 @@ export function AllCourses() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    fetch('https:https://online-course-selling-client.vercel.app/user/courses')
+    fetch('https://online-course-selling-server.vercel.app/user/courses')
       .then((response) => response.json())
       .then((data) => setCourses(data.courses))
       .catch((error) => console.error("Error while fetching:", error));

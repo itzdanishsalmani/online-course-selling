@@ -4,8 +4,8 @@ require("dotenv").config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 function userMiddleware(req,res,next){
-    const admin_token = req.headers.authorization;
-    const words = admin_token.split(" ");
+    const token = req.headers.authorization;
+    const words = token.split(" ");
     const jwtToken = words[1];
     const decodedValue = jwt.verify(jwtToken,JWT_SECRET);
 

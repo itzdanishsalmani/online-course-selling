@@ -56,8 +56,8 @@ export function UserLogin() {
                   if (data.success) {
                     const token = data.token;
                     localStorage.setItem("token", token);
-                    localStorage.setItem("userEmail", email);
-                    console.log("User Token and email is", token,email);
+                    localStorage.setItem("email", email);
+                    console.log("User Token and email is", token, email);
                     alert("You have log in")
                     navigate("/purchasedcourses");
                   } else {
