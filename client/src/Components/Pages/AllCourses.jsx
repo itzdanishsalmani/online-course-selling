@@ -63,8 +63,7 @@ function CoursesCard(props) {
     // Check if token is available
     const token = localStorage.getItem('token');
     if (!token) {
-        alert("You can buy after Login.");
-        navigate("/register/user")
+      alert("You can buy after Login.");
          return;
     }
 
