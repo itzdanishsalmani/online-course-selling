@@ -53,17 +53,22 @@ function TopBar() {
     </div>
   );
 }
+function DisplayText(){
+  return (
+    <div className="pt-24 text-xl font-bold flex justify-center items-center ">
+      All Course
+    </div>
+  )
+}
 
 function CoursesCard(props) {
   
   function buyNow(selectedCourseId, email) {
-    // Log email to the console to check if it's retrieved correctly
-    console.log("User Email:", email);
 
     // Check if token is available
     const token = localStorage.getItem('token');
     if (!token) {
-        alert("Token not found. Please login again.");
+        alert("Please login.");
         return;
     }
 
@@ -94,8 +99,6 @@ const { course } = props; // Destructure course from props
 
 // Retrieve email from localStorage
 const email = localStorage.getItem("email");
-// Log email to the console to check if it's retrieved correctly
-console.log("User Email:", email);
 
 return (
     <div className="border border-blue-900 rounded-xl p-4 ">
@@ -130,7 +133,6 @@ CoursesCard.propTypes = {
     price: PropTypes.number.isRequired,
   }).isRequired,
 };
-export { CoursesCard };
 
 export function AllCourses() {
   const [courses, setCourses] = useState([]);
@@ -145,9 +147,9 @@ export function AllCourses() {
   return (
     <div>
       <TopBar />
-
+      <DisplayText/>
       {courses && courses.length > 0 ? (
-        <div className="pt-24 flex flex-row items-center justify-center">
+        <div className="pt-8 flex flex-row items-center justify-center">
           {courses.map((course) => (
             <div key={course._id} className="w-fit ml-4">
               <CoursesCard course={{ ...course }} />
@@ -155,7 +157,7 @@ export function AllCourses() {
           ))}
         </div>
       ) : (
-        <h2 className="pt-24 flex flex-row items-center justify-center text-black">
+        <h2 className="pt-8 flex flex-row items-center justify-center text-black">
           {courses
             ? "Loading..."
             : "Oops! No course is currently offered. Return later!"}

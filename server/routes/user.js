@@ -76,4 +76,25 @@ router.get('/courses', async (req, res) => {
     })
 });
 
+router.get('/purchasedcourses/:email', userMiddleware, async (req, res) => {
+    try {
+        const email = req.params.email;
+        const user = await User.findOne({ email: email }).populate('purchasedCourses');
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        
+        const purchasedCourses = user.purchasedCourses;
+
+        res.json({
+            email: email,
+            purchasedCourses: purchasedCourses
+        });
+    } catch (error) {
+        console.error("Error fetching purchased courses:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+});
+
 module.exports = router;
