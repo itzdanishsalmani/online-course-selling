@@ -76,6 +76,7 @@ router.get('/courses', async (req, res) => {
     })
 });
 
+
 router.get('/purchasedcourses/:email', userMiddleware, async (req, res) => {
     try {
         const email = req.params.email;
@@ -96,5 +97,4 @@ router.get('/purchasedcourses/:email', userMiddleware, async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
-
 module.exports = router;

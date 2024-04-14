@@ -90,7 +90,7 @@ export function PurchasedCourses() {
           return;
       }
 
-      fetch(`http://localhost:8000/user/purchasedcourse/${email}`, {
+      fetch(`http://localhost:8000/user/purchasedcourses/${email}`, {
           method: "GET",
           headers: {
               "Content-Type": "application/json",
