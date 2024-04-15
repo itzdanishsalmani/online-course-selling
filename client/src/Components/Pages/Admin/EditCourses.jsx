@@ -123,9 +123,9 @@ export function EditCourses() {
       <TopBar />
 
       {courses && courses.length > 0 ? (
-        <div className="pt-24 flex flex-row items-center justify-center">
+        <div className="pt-24 flex flex-col md:flex-row items-center justify-center">
           {courses.map((course) => (
-            <div key={course._id} className="w-fit ml-4">
+            <div key={course._id} className="w-fit mt-4 md:ml-4">
               <CoursesCard course={course} openEditPopup={openEditPopup} />
             </div>
           ))}

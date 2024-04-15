@@ -38,9 +38,8 @@ export function AdminLogin() {
         }).then(response => response.json())
         .then(data => {
           if (data.success) {
-            const token = data.token;
-            localStorage.setItem('admin_token',token);
-            console.log(' Admin Token :',token);
+            const admin_token = data.admin_token;
+            localStorage.setItem('admin_token',admin_token);
             navigate('/editcourses')
             } else {
               alert("Incorrect username or password"); // Show failure message

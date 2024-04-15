@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom"
              <div className="flex justify-end flex-grow inline-flex m-4">
                  <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs md:text-sm">
                      <button onClick={loginClick}>Login</button></div>
-                 <div className="ml-1 p-1 border border-custom-light rounded-xl text-white text-xs bg-blue-700 md:text-sm">
+                 <div className=" ml-1 p-1 border border-custom-light rounded-xl text-white text-xs bg-blue-700 md:text-sm">
                      <button onClick={handleClick}>Join now</button></div>
              </div>
          </div>
@@ -176,6 +176,11 @@ import { useNavigate } from "react-router-dom"
      )
  }
  function AfterAbout(){
+    const navigate = useNavigate();
+        
+        function handleClick(){
+            navigate('/allcourses')
+        }
      return (
          <div className="font-sans bg-custom-bg grid border border-blue-950 pb-24 md:pb-96 md:grid-cols-2">
              <div className="bg-custom-bg mt-8 ml-4 mr-4 md:mt-60 md:ml-12">
@@ -186,7 +191,7 @@ import { useNavigate } from "react-router-dom"
                  documented slides!</div>
                  <div className="mt-2 text-slate-500 text-xs md:mr-12 md:text-lg">Facing any issues while setting up the environment? Get it fixed, Ask on the discord communtiy!</div>
                  <div>
-                     <button className="mt-4 p-2 mb border border-custom-light rounded-3xl text-white text-xs bg-blue-700 md:mt-8 md:font-medium md:text-base">Explore courses</button>
+                     <button onClick={handleClick} className="mt-4 p-2 mb border border-custom-light rounded-3xl text-white text-xs bg-blue-700 md:mt-8 md:font-medium md:text-base">Explore courses</button>
                  </div>
 
              </div>
