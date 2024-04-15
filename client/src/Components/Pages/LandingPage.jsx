@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 
  function TopBar(){
-    const navigate = useNavigate('/allcourses');
+    const navigate = useNavigate();
         
         function handleClick(){
             navigate('/allcourses')
@@ -29,6 +29,12 @@ import { useNavigate } from "react-router-dom"
  }
  
  function AfterTopBar() {
+    const navigate = useNavigate();
+        
+        function handleClick(){
+            navigate('/allcourses')
+        }
+
      return (
          <div className="bg-custom-blue font-sans flex pt-12 flex-col justify-center items-center ">
              <div className="bg-white mt-24 p-1 border rounded-3xl text-blue-600 text-xs md:text-xl">#1 LEARNING PLATFORM</div>
@@ -40,7 +46,7 @@ import { useNavigate } from "react-router-dom"
                  <div>Today and Transform into a Tech Pro Tomorrow!</div> 
              </div>
              <div>
-                 <button className="mt-8 ml-4 p-2 border border-custom-light rounded-3xl text-white text-xs font-medium bg-blue-700 md:text-base">
+                 <button onClick={handleClick} className="mt-8 ml-4 p-2 border border-custom-light rounded-3xl text-white text-xs font-medium bg-blue-700 md:text-base">
                      Explore courses</button>
                  <button className="mt-8 ml-4 p-2 border border-custom-light rounded-3xl text-white text-xs font-medium md:text-base">
                      see more  </button>
@@ -63,11 +69,11 @@ import { useNavigate } from "react-router-dom"
                          environment for mastering the essentials of programming. Stay ahead
                          of the curve by exploring courses curated by industry engineers.</div>
                      <div>
-                         <button className="mt-4 p-2 border border-custom-light rounded-3xl text-white text-xs bg-blue-700 md:mt-8 md:font-medium md:text-base">Explore courses</button>
+                         <button onClick={handleClick} className="mt-4 p-2 border border-custom-light rounded-3xl text-white text-xs bg-blue-700 md:mt-8 md:font-medium md:text-base">Explore courses</button>
                      </div>                    
                  </div>
 
-                 <div className="h-0 invisible md:visible md:mt-36 border-custom-border-color border-t-8 border-l-8 border-b-8 rounded-3xl ">
+                 <div className="h-0 invisible md:visible md:mt-36 ">
                      <img src="/dashboard.png" alt="" />
                  </div>
              </div>
@@ -77,7 +83,7 @@ import { useNavigate } from "react-router-dom"
  function BgWhite(){
      return(
          <div className="font-sans bg-custom-bg grid border border-blue-950 pb-24 md:pb-96 md:grid-cols-2">
-             <div className="bg-custom-bg h-0 invisible md:visible md:mt-36 md:border-custom-border-color border-t-8 border-r-8 border-b-8 rounded-3xl ">
+             <div className="bg-custom-bg h-0 invisible md:visible md:mt-36">
                  <img src="/dailycode.png" alt="" />
              </div>
              <div className="bg-custom-bg mt-8 ml-4 mr-4 md:mt-60 md:ml-12">
@@ -184,21 +190,27 @@ import { useNavigate } from "react-router-dom"
                  </div>
 
              </div>
-             <div className="bg-custom-bg h-0 invisible md:visible md:mt-36 md:border-custom-border-color border-t-8 border-r-8 border-b-8 rounded-3xl ">
-                 <img src="/dailycode.png" alt="" />
+             <div className="bg-custom-bg h-0 invisible md:visible md:mt-36 ">
+                 <img src="/discord.png" alt="" />
              </div>
 
          </div>
      )
  }
  function LastSection(){
+    const navigate = useNavigate();
+        
+        function handleClick(){
+            navigate('/allcourses')
+        }
+
      return (
          <div className="font-sans bg-custom-blue pt-32 pb-32 md:pt-60 md:pb-60 flex flex-col items-center justify-center">
              <div className="text-white text-center font-bold text-2xl md:text-4xl">Every developer deserves to be a great engineer, a</div>
              <div className="text-custom-light-blue text-center font-bold text-2xl md:text-4xl">100xEngineer!</div>
              <div className="text-center text-custom-light mt-3 md:pl-52 md:pr-52 md:text-xl">Give yourself the power you deserve with a HyperDev today!</div>
-             <div className="">
-                 <button className="content-center mt-4 p-2 mb border border-custom-light rounded-3xl text-white text-xs bg-blue-700 md:mt-8 md:font-medium md:text-base">Join now</button>
+             <div >
+                 <button onClick={handleClick} className="content-center mt-4 p-2 mb border border-custom-light rounded-3xl text-white text-xs bg-blue-700 md:mt-8 md:font-medium md:text-base">Join now</button>
              </div>
          </div>
      )
