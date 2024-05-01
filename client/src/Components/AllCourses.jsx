@@ -29,7 +29,7 @@ function TopBar() {
 
   return (
     <div className="fixed w-full">
-      <div className="bg-custom-blue font-sans flex border border-custom-light">
+      <div className="bg-custom-blue-nav font-sans flex">
         <div className="flex items-center p-3 inline-flex">
           <img
             src="/logo.png"
@@ -63,37 +63,36 @@ function DisplayText(){
 
 function CoursesCard(props) {
   
-  function buyNow(selectedCourseId, email) {
-
+  async function buyNow(selectedCourseId, email) {
     // Check if token is available
     const token = localStorage.getItem('token');
     if (!token) {
         alert("Please login.");
         return;
     }
+    fetch("https://hyperdev-server.vercel.app/user/payment", {
+      method: 'POST',
+      headers: {
+        "Content-Type": 'application/json',
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({ selectedCourseId, email })
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        window.location.href = data.links[1].href;
 
-    fetch(`https://online-course-selling-server.vercel.app/user/buycourse/${selectedCourseId}`, {
-        method: "POST",
-        body: JSON.stringify({
-            email
-        }),
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-    })
-    .then(async (res) => {
-        if (!res.ok) {
-            const error = await res.json();
-            throw new Error(error.message || "Failed to purchase course");
-        }
-        const json = await res.json();
-        alert("Course Purchased");
-    })
-    .catch(error => {
-        alert(error.message || "Failed to purchase course");
-    });
-}
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
+        
+  }
 
 const { course } = props; // Destructure course from props
 
@@ -138,7 +137,7 @@ export function AllCourses() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    fetch('https://online-course-selling-server.vercel.app/user/courses')
+    fetch('https://hyperdev-server.vercel.app/user/courses')
       .then((response) => response.json())
       .then((data) => setCourses(data.courses))
       .catch((error) => console.error("Error while fetching:", error));

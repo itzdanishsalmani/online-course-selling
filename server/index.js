@@ -5,7 +5,6 @@ const adminRouter = require("./routes/admin")
 const userRouter = require("./routes/user");
 const cors = require('cors')
 require("./db/connect")
-
 app.use(cors());
 
 // Middleware for parsing request bodies

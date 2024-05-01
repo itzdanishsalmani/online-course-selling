@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom"
      return (
     
          <div className="fixed w-full">
-         <div className="bg-custom-blue font-sans flex border border-custom-light">
+         <div className="bg-custom-blue-nav font-sans flex">
              <div className="flex items-center p-3 inline-flex">
                  <img src="/logo.png" className="w-10 h-10 rounded-3xl" alt="logo"></img>
                  <div className="ml-1 text-white text-xl font-bold">HyperDev</div>

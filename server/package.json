@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "author": "danish",
   "license": "ISC",
@@ -14,8 +14,13 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-session": "^1.18.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.4",
+    "paypal-rest-sdk": "^1.8.1",
     "split": "^1.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }

@@ -1,14 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AllCourses } from './Components/Pages/AllCourses.jsx'
-import { LandingPage } from './Components/Pages/LandingPage.jsx'
-import Phonepe from "./Components/Pages/Phonepe.jsx";
+import { AllCourses } from "./Components/AllCourses.jsx"
+import { LandingPage } from "./Components/LandingPage.jsx"
 
-import { UserLogin } from './Components/Pages/User/UserLogin.jsx'
-import { PurchasedCourses } from "./Components/Pages/User/PurchasedCourses.jsx";
+import { UserLogin } from "./Components/User/UserLogin.jsx"
+import { PurchasedCourses } from "./Components/User/PurchasedCourses.jsx";
 
-import { AdminLogin } from "./Components/Pages/Admin/AdminLogin.jsx"
-import { EditCourses } from "./Components/Pages/Admin/EditCourses.jsx";
-import { AddCourses } from "./Components/Pages/Admin/AddCourses.jsx";
+import { AdminLogin } from "./Components/Admin/AdminLogin.jsx"
+import { EditCourses } from "./Components/Admin/EditCourses.jsx";
+import { AddCourses } from "./Components/Admin/AddCourses.jsx";
+import { RedirectUnsuccessful } from "./Components/User/RedirectUnsuccessful.jsx";
+import { RedirectSuccessful } from "./Components/User/RedirectSuccessful.jsx";
 
 function App() {
 
@@ -22,7 +23,8 @@ function App() {
         <Route path="/purchasedcourses" element={<PurchasedCourses/>} />
         <Route path="/editcourses" element={<EditCourses/>} />
         <Route path="/editcourses/add" element={<AddCourses/>} />
-        <Route path="/paymentpage" element={<Phonepe/>} />
+        <Route path='/success' element={<RedirectSuccessful/>} />
+        <Route path='/failed' element={<RedirectUnsuccessful/>} />
       </Routes>
     </BrowserRouter>
   )

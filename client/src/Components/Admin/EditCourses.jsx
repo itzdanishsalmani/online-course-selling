@@ -20,7 +20,7 @@ useEffect(() => {
 
   return (
     <div className="fixed w-full">
-      <div className="bg-custom-blue font-sans flex border border-custom-light">
+      <div className="bg-custom-blue-nav font-sans flex">
         <div className="flex items-center p-3 inline-flex">
           <img
             src="/logo.png"
@@ -52,7 +52,7 @@ function CoursesCard({ course, openEditPopup }) {
   const navigate = useNavigate();
 
   function deleteCourse() {
-    fetch('https://online-course-selling-server.vercel.app/admin/editcourses/delete', {
+    fetch('https://hyperdev-server.vercel.app/admin/editcourses/delete', {
       method: 'DELETE',
       body: JSON.stringify({
         id: course._id
@@ -103,7 +103,7 @@ export function EditCourses() {
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
-    fetch('https://online-course-selling-server.vercel.app/user/courses')
+    fetch('https://hyperdev-server.vercel.app/user/courses')
       .then((response) => response.json())
       .then((data) => setCourses(data.courses))
       .catch((error) => console.error("Error while fetching:", error));
@@ -154,7 +154,7 @@ function EditPopup({ closeEditPopup, selectedCourse }) {
   const [price, setPrice] = useState(selectedCourse.price);
 
   function updateCourse() {
-    fetch(`https://online-course-selling-server.vercel.app/admin/editcourse/update/${selectedCourse._id}`, {
+    fetch(`https://hyperdev-server.vercel.app/admin/editcourse/update/${selectedCourse._id}`, {
       method: "PUT",
       body: JSON.stringify({
         title,

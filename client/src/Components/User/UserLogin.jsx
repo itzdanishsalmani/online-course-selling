@@ -12,7 +12,7 @@ export function UserLogin() {
       return;
     }
 
-    fetch("https://online-course-selling-server.vercel.app/user/signin", {
+    fetch("https://hyperdev-server.vercel.app/user/signin", {
       method: "POST",
       body: JSON.stringify({
         email: email,
@@ -51,7 +51,7 @@ export function UserLogin() {
       return;
     }
 
-    fetch("https://online-course-selling-server.vercel.app/user/signup", {
+    fetch("https://hyperdev-server.vercel.app/user/signup", {
       method: "POST",
       body: JSON.stringify({
         email: email,

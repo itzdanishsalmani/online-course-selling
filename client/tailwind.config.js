@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         'custom-blue': 'rgba(2,8,23,255)',
+        'custom-blue-nav': 'rgba(2,8,23,0.95)',
         'custom-light-blue':'rgba(59,130,246,.5)',
         'custom-light':'rgba(163,163,163,255)',
         'custom-bg':'rgba(226,232,240,255)',

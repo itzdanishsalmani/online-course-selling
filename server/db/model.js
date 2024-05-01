@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-//Schemas
+//Schema
 const AdminSchema = mongoose.Schema({
     email:String,
     password:String

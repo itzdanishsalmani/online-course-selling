@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const { Router } = require("express");
 const {JWT_SECRET,adminMiddleware} = require("../middleware/admin");
 const router = Router();
-const { Admin,Course } = require("../db");
+const { Admin,Course } = require("../db/model")
 
 
 // Admin Routes
