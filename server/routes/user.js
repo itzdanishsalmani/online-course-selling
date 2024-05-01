@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken")
 const { Router } = require("express");
 const { JWT_SECRET, userMiddleware } = require("../middleware/user");
 const router = Router();
-const { User, Course } = require("../db/model.js");
+const { User, Course } = require("../db/model");
 
 const paypal = require('paypal-rest-sdk');
 // PayPal configuration
@@ -97,8 +97,8 @@ router.post('/payment',userMiddleware, async (req, res) => {
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": `https://hyperdev-server.vercel.app/user/success/${selectedCourseId}/${email}`,
-                "cancel_url": "https://hyperdev-server.vercel.app/user/failed"
+                "return_url": `https://hyperdev-server.vercel.app/success/${selectedCourseId}/${email}`,
+                "cancel_url": "https://hyperdev-server.vercel.app/failed"
             },
             "transactions": [{
                 "item_list": {

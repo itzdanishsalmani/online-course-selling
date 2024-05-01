@@ -5,7 +5,10 @@ const adminRouter = require("./routes/admin")
 const userRouter = require("./routes/user");
 const cors = require('cors')
 require("./db/connect")
-app.use(cors());
+app.use(cors({
+  origin:"https://hyperdev.vercel.app/"
+}
+));
 
 // Middleware for parsing request bodies
 app.use(bodyParser.json());
