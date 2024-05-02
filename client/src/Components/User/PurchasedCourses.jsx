@@ -124,22 +124,21 @@ export function PurchasedCourses() {
       <div>
         <TopBar/>
         <DisplayText/>
-          {/* Render courses */}
-          {courses && courses.length > 0 ? (
-              <div className="pt-8 flex flex-row items-center justify-center">
-                  {courses.map((course) => (
-                      <div key={course._id} className="w-fit ml-4">
-                          <CoursesCard course={{ ...course }} />
-                      </div>
-                  ))}
-              </div>
-          ) : (
-              <h2 className="pt-8 flex flex-row items-center justify-center text-black">
-                  {courses
-                      ? "Loading..."
-                      : "Oops! No course is currently offered. Return later!"}
-              </h2>
-          )}
+        {courses && courses.length > 0 ? (
+        <div className=" pt-8 flex flex-col md:flex-row items-center justify-center">
+          {courses.map((course) => (
+            <div key={course._id} className="w-fit mt-4 md:ml-4">
+              <CoursesCard course={{ ...course }} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <h2 className="pt-8 flex flex-row items-center justify-center text-black">
+          {courses
+            ? "Loading..."
+            : "Oops! No course is currently offered. Return later!"}
+        </h2>
+      )}
       </div>
   );
 }

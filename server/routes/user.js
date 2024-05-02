@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken")
 const { Router } = require("express");
 const { JWT_SECRET, userMiddleware } = require("../middleware/user");
 const router = Router();
-const { User, Course } = require("../db/model");
+const { User, Course } = require("../db/model")
 
 const paypal = require('paypal-rest-sdk');
 // PayPal configuration
@@ -85,9 +85,9 @@ router.get('/purchasedcourse/:email', userMiddleware, async (req, res) => {
     }
 });
 
-router.post('/payment',userMiddleware, async (req, res) => {
-    const { selectedCourseId, email } = req.body;
-
+router.post('/payment', async (req, res) => {
+    const selectedCourseId = req.body.selectedCourseId;
+    const email = req.body.email
     let data
     try {
 
@@ -97,8 +97,8 @@ router.post('/payment',userMiddleware, async (req, res) => {
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": `https://hyperdev-server.vercel.app/success/${selectedCourseId}/${email}`,
-                "cancel_url": "https://hyperdev-server.vercel.app/failed"
+                "return_url": `https://hyperdev-server.vercel.app/user/success/${selectedCourseId}/${email}`,
+                "cancel_url": "https://hyperdev-server.vercel.app/user/failed"
             },
             "transactions": [{
                 "item_list": {
@@ -133,7 +133,9 @@ router.post('/payment',userMiddleware, async (req, res) => {
         console.log(error);
     }
 })
-router.post('/success/:selectedCourseId/:email',userMiddleware, async (req, res) => {
+
+router.get('/success/:selectedCourseId/:email', async (req, res) => {
+
     const selectedCourseId = req.params.selectedCourseId;
     const email = req.params.email;
 
@@ -161,10 +163,9 @@ router.post('/success/:selectedCourseId/:email',userMiddleware, async (req, res)
     }
 });
 
-router.get('/failed',userMiddleware, async (req, res) => {
+router.get('/failed', async (req, res) => {
 
     return res.redirect("https://hyperdev.vercel.app/failed");
 })
 
 module.exports = router;
-
