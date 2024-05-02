@@ -133,7 +133,7 @@ router.post('/payment',userMiddleware, async (req, res) => {
         console.log(error);
     }
 })
-router.get('/success/:selectedCourseId/:email',userMiddleware, async (req, res) => {
+router.post('/success/:selectedCourseId/:email',userMiddleware, async (req, res) => {
     const selectedCourseId = req.params.selectedCourseId;
     const email = req.params.email;
 
