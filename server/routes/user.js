@@ -4,7 +4,6 @@ const { Router } = require("express");
 const { JWT_SECRET, userMiddleware } = require("../middleware/user");
 const router = Router();
 const { User, Course } = require("../db/model")
-
 const paypal = require('paypal-rest-sdk');
 // PayPal configuration
 paypal.configure({
@@ -15,42 +14,49 @@ paypal.configure({
 
 // Signup
 router.post('/signup', async (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    const { email, password } = req.body;
 
-    await User.create({
-        email,
-        password
-    })
-    res.json({
-        msg: "User added successfully"
-    })
+    try {
 
+        // Create user
+        await User.create({ email, password });
+
+        res.json({
+            msg: "User added successfully"
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            msg: "Invalid email format"
+        });
+    }
 });
 
-//Signin
+//SignIn
 router.post('/signin', async (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    const { email, password } = req.body;
 
-    const user = await User.findOne({
-        email,
-        password
-    })
+    try {
 
-    if (user) {
-        const token = jwt.sign({
-            email
-        }, JWT_SECRET);
-        res.json({
-            success: true,
-            token
-        })
-    } else {
-        res.status(411).json({
+        const user = await User.findOne({ email, password });
+
+        if (user) {
+            const token = jwt.sign({ email }, JWT_SECRET);
+            res.json({
+                success: true,
+                token
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                msg: "Incorrect username or password"
+            });
+        }
+    } catch (error) {
+        res.status(400).json({
             success: false,
-            msg: "Incorrect username or password"
-        })
+            msg: "Invalid email format"
+        });
     }
 });
 

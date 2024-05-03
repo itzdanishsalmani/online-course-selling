@@ -11,7 +11,7 @@ export function UserLogin() {
       alert("Fields cannot be empty");
       return;
     }
-
+  
     fetch("https://hyperdev-server.vercel.app/user/signin", {
       method: "POST",
       body: JSON.stringify({
@@ -34,23 +34,27 @@ export function UserLogin() {
           localStorage.setItem("token", token);
           localStorage.setItem("email", email);
           console.log("User Token and email is", token, email);
-          alert("You have logged in");
+          alert("Welcome user");
           navigate("/purchasedcourses");
+        } else if (data.error === "Validation failed") {
+          const validationErrors = data.details.map((error) => error.message).join("\n");
+          alert(validationErrors);
         } else {
           alert("Incorrect username or password");
         }
       })
       .catch((error) => {
         console.error("Error:", error);
+        alert("An error occurred. Please try again later.");
       });
   };
-
+  
   const handleSignup = () => {
     if (email.trim() === "" || password.trim() === "") {
       alert("Fields cannot be empty");
       return;
     }
-
+  
     fetch("https://hyperdev-server.vercel.app/user/signup", {
       method: "POST",
       body: JSON.stringify({
@@ -61,15 +65,28 @@ export function UserLogin() {
         "Content-Type": "application/json",
       },
     })
-      .then(async (res) => {
-        const json = await res.json();
-        alert("User added");
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          alert("You signed up successfully");
+        } else if (data.error === "Validation failed") {
+          const validationErrors = data.details.map((error) => error.message).join("\n");
+          alert(validationErrors);
+        } else {
+          alert("An error occurred during signup.");
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
+        alert("An error occurred. Please try again later.");
       });
   };
-
+  
   return (
     <div className="bg-custom-blue flex flex-col h-screen items-center justify-center">
       <div className="bg-white p-8 text-black text-lg border border-blue-900 rounded-2xl ">
