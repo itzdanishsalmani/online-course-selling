@@ -78,7 +78,7 @@ export function UserLogin() {
           const validationErrors = data.details.map((error) => error.message).join("\n");
           alert(validationErrors);
         } else {
-          alert("An error occurred during signup.");
+          alert("You signup successfuly.");
         }
       })
       .catch((error) => {
