@@ -37,7 +37,7 @@ function TopBar() {
           <button
               onClick={() => {
                 localStorage.removeItem("token");
-                localStorage.removeItem("userEmail");
+                localStorage.removeItem("email");
                 navigate("/");
               }}
             >
