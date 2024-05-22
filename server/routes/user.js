@@ -141,17 +141,18 @@ router.post('/payment', async (req, res) => {
 })
 
 router.get('/success/:selectedCourseId/:email', async (req, res) => {
-
     const selectedCourseId = req.params.selectedCourseId;
     const email = req.params.email;
 
-    await User.findOneAndUpdate({email, 
-        $push: {
-            purchasedCourses: selectedCourseId
-        }
-}) 
     try {
-        const error = null; // Assuming no error for demonstration purposes
+        await User.findOneAndUpdate(
+            { email: email },
+            { $push: { purchasedCourses: selectedCourseId } },
+            { new: true }
+        );
+
+        // Assuming no error for demonstration purposes
+        const error = null; 
 
         if (error) {
             console.log(error);
