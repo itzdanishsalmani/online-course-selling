@@ -6,9 +6,13 @@ import { useNavigate } from "react-router-dom"
         function handleClick(){
             navigate('/allcourses')
         }
-        function loginClick(){
-            navigate('/register/user')
-        }
+        function loginClick(){   
+          if (!localStorage.getItem("token")) {
+      navigate("/register/user");
+    } else {
+      navigate("/purchasedcourses");
+    }
+      }
      return (
     
          <div className="fixed w-full">
